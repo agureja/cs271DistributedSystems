@@ -47,7 +47,8 @@ public class OpenBank {
 			
 		
 		logFile = new csv(fileName);
-		log = logFile.readLog(); 
+		
+		log.addAll(logFile.readLog());
 		jobQueue = new LinkedList<Double>();
 		recvThreadControl = true;
 		optDecided = false;
