@@ -129,14 +129,17 @@ public class NetworkReceiver extends Thread {
 											*change the updateLog(value) to updateLog(amount)
 											*maybe we need a new data structure	
 											*/
-											value = ((Double) jsonObject.get("value")).doubleValue();
+											values = (JSONArray) jsonObject.get("value");
 											JSONArray senders = (JSONArray) jsonObject.get("senderId");
 											ArrayList<Integer> senderList = new ArrayList<Integer>();
+											ArrayList<Double> tempVal = new ArrayList<Double>();
+											value = 0; 
 											for(int i=0;i<senders.size();++i) {
 												senderList.add(((Long) jsonObject.get("senderId")).intValue());
+												tempVal.add(((Double)values.get(i)).doubleValue());
+												value +=((Double) values.get(i)).doubleValue();
+												
 											}
-											ArrayList<Double> tempVal = new ArrayList<Double>();
-											tempVal.add(value);
 											if (OpenBank.updateLog(tempVal,value) == true) {
 												if (senderList.contains(OpenBank.id)) {		
 													OpenBank.jobQueue.poll();
