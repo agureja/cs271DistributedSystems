@@ -68,7 +68,6 @@ public class csv {
 					val = val + log.get(i).get(j);
 					temp+= String.valueOf(Math.abs(val))+",";
 				}
-				
 				temp=temp.substring(0,temp.length()-2);
 				
 				if (val > 0) {
@@ -83,7 +82,7 @@ public class csv {
 						fw.append(String.valueOf(temp));
 				}
 			}
-					fw.append('\n');
+			fw.append('\n');
 			
 			fw.flush();
 			fw.close();
