@@ -44,8 +44,10 @@ public class OpenBank {
 	static int bal = id - serverMapping.size();
 	
 	public static void main(String args[]) throws Exception {
-					 
+			
+		
 		logFile = new csv(fileName);
+		log = logFile.readLog(); 
 		jobQueue = new LinkedList<Double>();
 		recvThreadControl = true;
 		optDecided = false;
