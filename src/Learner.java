@@ -30,8 +30,8 @@ public class Learner extends Process {
 		acceptedValues.clear();
 	}
 	public void receiveAcceptRequest(int uniqueId,BallotNumber proposal, double value) {
-		
-		senders.add(uniqueId);
+		if(value>0)
+			senders.add(uniqueId);
 		if(acceptedValues.containsKey(value)){
 			
 			acceptedValues.put(value, acceptedValues.get(value)+1);
@@ -41,27 +41,36 @@ public class Learner extends Process {
 		}
 		
 		if(acceptedValues.get(value) >= quorumSize) {
+			ArrayList<Double> tempValue= new ArrayList<Double>();
+			ArrayList<Integer> ids=new ArrayList<Integer>();
+			
 			if(optimal == false) {
 				this.value = value;
-				ArrayList<Double> tempValue= new ArrayList<Double>();
+				
 				tempValue.add(value);
-				ArrayList<Integer> ids=new ArrayList<Integer>();
 				ids.add(uniqueId);
-				NetworkSender.sendDecide(ids,tempValue);
 				acceptedValues.clear();
 			} else {
-				ArrayList<Double> values = new ArrayList<Double>();
-				Object[] keys = acceptedValues.keySet().toArray();
-				for(int i=0; i<acceptedValues.size();++i) {
-					if((Double)keys[i]>0){
-						values.add((Double)keys[i]);
+					
+				if(value < 0 ) {
+					tempValue.add(value);
+					ids.add(uniqueId);
+				} else {
+					Object[] keys = acceptedValues.keySet().toArray();
+					for(int i=0; i<acceptedValues.size();++i) {
+						if((Double)keys[i]>0 ){
+							tempValue.add((Double)keys[i]);
+						}
 					}
-				}
+					ids.addAll(senders);
 			
+				}
 			}
-		}
+			NetworkSender.sendDecide(ids,tempValue);
+			
+		
 	}
-	
+}
 	public void receiveOptAccepted(int senderId, double value) {
 		senders.add(senderId);
 		if(optAcceptedValues.containsKey(value)) {
