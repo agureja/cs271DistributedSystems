@@ -15,10 +15,10 @@ public class csv {
 	private String line;
 	public csv(String fileName) throws IOException {
 		this.fileName = fileName;
-		FileWriter fw = new FileWriter(fileName,false);
+		FileWriter fw = new FileWriter(fileName,true);
 		fw.append("Deposit");
 		fw.append("	");
-		fw.append(0);
+		fw.append(String.valueOf(0.0));
 		fw.close();
 		
 		
@@ -29,7 +29,7 @@ public class csv {
 		try {
 			br = new BufferedReader(new FileReader(fileName));
 			while ((line = br.readLine()) != null) {
-				String[] contents = line.split(" ");
+				String[] contents = line.split("	");
 				ArrayList<Double> tempList = new ArrayList<Double>();
 				
 				if (contents[0] == "Deposit") {
