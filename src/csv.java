@@ -89,7 +89,7 @@ public class csv {
 						fw.append(String.valueOf(temp));
 				}
 			}
-			fw.append('\n');	
+			fw.append("\r\n");	
 			fw.flush();
 			fw.close();
 		} catch (IOException e) {
