@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,9 +16,12 @@ public class csv {
 	private String line;
 	public csv(String fileName) throws IOException {
 		this.fileName = fileName;
-		FileWriter fw = new FileWriter(fileName,false);
-		fw.write("Deposit	0.0");
-		fw.close();
+		File f = new File(fileName);
+		if(!f.exists()) {
+			FileWriter fw = new FileWriter(fileName,false);
+			fw.write("Deposit	0.0");
+			fw.close();
+		}
 		
 		
 	}
