@@ -40,17 +40,15 @@ public class Proposer extends Process {
 	/*
 	 * still need modification this part
 	 */
-	public boolean recievePromise(Integer uuid, BallotNumber propId, BallotNumber prevAcceptedByAcceptor, double value) {
+	public boolean recievePromise(Integer uuid, BallotNumber propId, BallotNumber prevAcceptedByAcceptor, double value, int slots) {
 		//I feel like we don't need the uuid
 		//but leave it here at first
-		System.out.println("In recieve Promise");
 		if(prevIDAcceptedByProposer.getUniqueId() == 0) {
 			
 			prevIDAcceptedByProposer = new BallotNumber(prevAcceptedByAcceptor.getUniqueId(),prevAcceptedByAcceptor.getNumber());
 		}
 		else if(prevIDAcceptedByProposer.CompareTo(prevAcceptedByAcceptor)<0) {
 			
-			System.out.println("NO one should be here");
 			prevIDAcceptedByProposer.setUniqueId(prevAcceptedByAcceptor.getUniqueId());
 			prevIDAcceptedByProposer.setNumber(prevAcceptedByAcceptor.getNumber());
 			this.value = value;
@@ -58,7 +56,7 @@ public class Proposer extends Process {
 
 		promiseList.add(uuid);
 		if(promiseList.size() >= quorumSize) {
-			NetworkSender.sendAccept(propId, this.value);
+			NetworkSender.sendAccept(propId, this.value,slots);
 			promiseList.clear();
 		}
 		return true;

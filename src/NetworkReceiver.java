@@ -90,13 +90,19 @@ public class NetworkReceiver extends Thread {
 											if(slots > OpenBank.log.size()) {
 												NetworkSender.recoverRequest(OpenBank.log.size(), senderId);
 											}
-											OpenBank.proposer.recievePromise(senderId, proposeBal, promiseBal, value);
+											OpenBank.proposer.recievePromise(senderId, proposeBal, promiseBal, value, slots);
 											break;
 											
 						case "accept" : 	value = ((Double) jsonObject.get("value")).doubleValue();
 					                   	 	proposal = new BallotNumber(
 					                   	 			((Long) jsonObject.get("acceptUid")).intValue(),
 					                   	 			((Long) jsonObject.get("acceptBallotNumber")).intValue());
+					                   	 	slots = ((Long) jsonObject.get("slotNumber")).intValue();
+						                 
+					                   	 	if(slots > OpenBank.log.size()) {
+												NetworkSender.recoverRequest(OpenBank.log.size(), ((Long) jsonObject.get("acceptUid")).intValue());
+											}
+					                   		
 					                   	 	OpenBank.acceptor.receiveAccept(proposal, value);
 					                   	 	break;
 					                   	 	
@@ -120,6 +126,7 @@ public class NetworkReceiver extends Thread {
 											values = (JSONArray) jsonObject.get("value");
 									
 											JSONArray senders = (JSONArray) jsonObject.get("senderId");
+											
 											ArrayList<Integer> senderList = new ArrayList<Integer>();
 											ArrayList<Double> tempVal = new ArrayList<Double>();
 											value = 0; 
@@ -127,7 +134,7 @@ public class NetworkReceiver extends Thread {
 												senderList.add(((Long)senders.get(i)).intValue());
 												tempVal.add(((Double)values.get(i)).doubleValue());
 												value +=((Double) values.get(i)).doubleValue();
-												
+											
 											}
 											if (OpenBank.updateLog(tempVal,value) == true) {
 												if (senderList.contains(OpenBank.id)) {		

@@ -74,12 +74,14 @@ public class NetworkSender {
 	}
 	
 	//Proposer: send accept to all
-	public static void sendAccept(BallotNumber acceptBallot, double val) {
+	public static void sendAccept(BallotNumber acceptBallot, double val, int slots) {
 		JSONObject obj = new JSONObject();
 		obj.put("task", "accept");
 		obj.put("acceptUid", new Integer(acceptBallot.getUniqueId()));
 		obj.put("acceptBallotNumber", new Integer(acceptBallot.getNumber()));
 		obj.put("value", new Double(val));
+		obj.put("slotNumber", new Integer(slots));
+		
 //		System.out.println(obj.toString());
 		for(int i = 1;i<=serverMapping.size();i++) {
 	//		 System.out.println(serverMapping.toString());	
