@@ -102,7 +102,7 @@ public class NetworkReceiver extends Thread {
 													OpenBank.log.add(temp);
 												}
 											}
-											OpenBank.proposer.recievePromise(promiseUid, proposeBal, promiseBal, value);
+											OpenBank.proposer.recievePromise(senderId, proposeBal, promiseBal, value);
 											break;
 											
 						case "accept" : 	value = ((Double) jsonObject.get("value")).doubleValue();
