@@ -130,12 +130,13 @@ public class NetworkReceiver extends Thread {
 											*maybe we need a new data structure	
 											*/
 											values = (JSONArray) jsonObject.get("value");
+									
 											JSONArray senders = (JSONArray) jsonObject.get("senderId");
 											ArrayList<Integer> senderList = new ArrayList<Integer>();
 											ArrayList<Double> tempVal = new ArrayList<Double>();
 											value = 0; 
 											for(int i=0;i<senders.size();++i) {
-												senderList.add(((Long) jsonObject.get("senderId")).intValue());
+												senderList.add(((Long)senders.get(i)).intValue());
 												tempVal.add(((Double)values.get(i)).doubleValue());
 												value +=((Double) values.get(i)).doubleValue();
 												
