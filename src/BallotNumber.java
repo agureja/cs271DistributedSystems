@@ -11,6 +11,7 @@ public class BallotNumber {
 	}
 	
 	public void reset() {
+		this.uniqueId = 0;
 		this.number = 0;
 	}
 	
