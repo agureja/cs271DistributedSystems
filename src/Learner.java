@@ -30,9 +30,8 @@ public class Learner extends Process {
 		acceptedValues.clear();
 	}
 	public void receiveAcceptRequest(int uniqueId,BallotNumber proposal, double value) {
-		if(value>0){
-			senders.add(uniqueId);
-		}
+		
+		senders.add(uniqueId);
 		if(acceptedValues.containsKey(value)){
 			
 			acceptedValues.put(value, acceptedValues.get(value)+1);
