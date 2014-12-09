@@ -10,8 +10,8 @@ public class Acceptor extends Process {
 		//initially, promise and accepted ID should be unique id + 0
 		//promise = new BallotNumber(0);
 		//acceptedID = new BallotNumber(0); 
-		promise = new BallotNumber(OpenBank.id, 0);
-		acceptedID = new BallotNumber(OpenBank.id, 0);
+		promise = new BallotNumber(0, 0);
+		acceptedID = new BallotNumber(0, 0);
 		value = 0;
 	}
 	
