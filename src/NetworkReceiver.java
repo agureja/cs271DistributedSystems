@@ -64,7 +64,7 @@ public class NetworkReceiver extends Thread {
 													break;
 													
 						case "recoverRequest" :		requestPos = ((Long) jsonObject.get("pos")).intValue();
-													requestId = ((Long) jsonObject.get("senderId")).intValue();
+													requestId = ((Long) jsonObject.get("recieverId")).intValue();
 													sendRecoverResponse(requestPos, requestId);
 													break;
 							
@@ -95,7 +95,7 @@ public class NetworkReceiver extends Thread {
 											value = ((Double) jsonObject.get("value")).doubleValue();
 											slots = ((Long) jsonObject.get("slotNumber")).intValue();
 											if(slots > OpenBank.log.size()) {
-												NetworkSender.recoverRequest(OpenBank.log.size(), OpenBank.id);
+												NetworkSender.recoverRequest(OpenBank.log.size(), senderId);
 												for(int i= OpenBank.log.size();i<slots;i++) {
 													temp = new ArrayList<Double>();
 													temp.add((double)0);

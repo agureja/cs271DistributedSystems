@@ -124,6 +124,7 @@ public class NetworkSender {
 		JSONObject obj = new JSONObject();
 		obj.put("task", "recoverRequest");
 		obj.put("pos", new Integer(startPos));
+		obj.put("recieverID", new Integer(OpenBank.id));
 		obj.put("senderId", new Integer(destUid));
 		sendString(obj.toString(), serverMapping.get(destUid));
 	}
