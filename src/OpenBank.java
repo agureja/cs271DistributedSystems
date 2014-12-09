@@ -46,7 +46,6 @@ public class OpenBank {
 	
 	public static void main(String args[]) throws Exception {
 			
-		
 		logFile = new csv(fileName);
 		log = logFile.readLog();
 		jobQueue = new LinkedList<Double>();
@@ -84,46 +83,60 @@ public class OpenBank {
 			
 
 			String input = "";
-			input = in.nextLine();
 			System.out.println("Which operation do you want to perform");
-
+			input = in.nextLine();
+			
 			switch (input) {
 			case "1":
-				System.out.println("Enter the amount you want to deposit/ withdraw:");
-				double val = Double.parseDouble(in.nextLine());
-				// optimized && deposit operation
-					/*
-					* every thing else is the same as basic case
-					*/
-					sendToLeaderQueue(val);
-					proposer.value = jobQueue.peek();
-					NetworkSender.sendPrepare(new BallotNumber(id, bal));	
-					long timeStamp = System.currentTimeMillis();
-					int sendTime = 1;
-					while (decide == false) {
-						if (System.currentTimeMillis() - timeStamp > timeout) {
-							
-							NetworkSender.sendPrepare(new BallotNumber(id, bal));
-							//set a time out
-							//if > 5 seconds, abort, increase ballot number
-							System.out.println("Failure: time out");
-							bal = bal + 5;
-							sendTime++;
-							if (sendTime > 5) {
-								break;
-							}
-							timeStamp = System.currentTimeMillis();
-						}					
-					}
+				   System.out.println("Enter the amount you want to deposit/ withdraw:");
+                   double val = Double.parseDouble(in.nextLine());
+                   if(val==0) {
+                	   System.out.println("Please enter non-zero number.");
+                	   break;
+                   }
+                	   
+                	   
+                   // optimized && deposit operation
+                   //
+                           /*
+                           * every thing else is the same as basic case
+                           */
+                           sendToLeaderQueue(val);
+                           proposer.value = jobQueue.peek();
 
-					if (decide == true) {
-						decide = false;
-						
-					} else {
-						System.out.println("Failure Occured!!");
-						jobQueue.poll();
-					}
-				break;
+                           long timeStamp = System.currentTimeMillis();
+                           int sendTime = 1;
+                           NetworkSender.sendPrepare(new BallotNumber(id, bal));
+                           while (!jobQueue.isEmpty()) {
+
+                                   if (System.currentTimeMillis() - timeStamp > timeout ) {
+
+                                           bal = bal + 5;
+                                           if(!jobQueue.isEmpty()) {
+                                                   System.out.println("Failure: time out");
+                                                   NetworkSender.sendPrepare(new BallotNumber(id, bal));
+                                                    sendTime++;
+                                                   if (sendTime > 5) {
+                                                           break;
+                                                   }
+
+                                           } else {
+                                                   break;
+                                           }
+                                           timeStamp = System.currentTimeMillis();
+                                   }
+                           }
+
+                           if(sendTime>5) {
+                                   System.out.println("Failure Occured!!");
+                                   jobQueue.poll();
+                           }
+                           else {
+                                   System.out.println("Successfull added " + String.valueOf(log.get(log.size()-1)));
+                                   decide = false;
+                           }
+
+                   break;
 
 			case "2":
 				Double balance = checkBalance();
@@ -152,7 +165,8 @@ public class OpenBank {
 
 			default:
 				System.out.println("Invalid entry. Press enter to continue");
-				System.console().readLine();
+				Scanner keyboard = new Scanner(System.in);
+				keyboard.nextLine();
 			}
 
 		}
