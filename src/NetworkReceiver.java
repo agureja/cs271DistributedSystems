@@ -99,9 +99,9 @@ public class NetworkReceiver extends Thread {
 					                   	 			((Long) jsonObject.get("acceptBallotNumber")).intValue());
 					                   	 	slots = ((Long) jsonObject.get("slotNumber")).intValue();
 						                 
-					                   	 	if(slots > OpenBank.log.size()) {
-												NetworkSender.recoverRequest(OpenBank.log.size(), ((Long) jsonObject.get("acceptUid")).intValue());
-											}
+					                   	 	//if(slots > OpenBank.log.size()) {
+												//NetworkSender.recoverRequest(OpenBank.log.size(), ((Long) jsonObject.get("acceptUid")).intValue());
+											//}
 					                   		
 					                   	 	OpenBank.acceptor.receiveAccept(proposal, value);
 					                   	 	break;
