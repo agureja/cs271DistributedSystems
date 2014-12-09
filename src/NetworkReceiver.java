@@ -71,8 +71,7 @@ public class NetworkReceiver extends Thread {
 						case "recoverResponse" :    getLogEntries(receivedMsg);
 													break;
 											
-						case "prepare" :    			
-											slots = ((Long) jsonObject.get("slotNumber")).intValue();
+						case "prepare" :    slots = ((Long) jsonObject.get("slotNumber")).intValue();
 											leader = ((Long) jsonObject.get("leader")).intValue();
 											if(slots > OpenBank.log.size()) {	
 												NetworkSender.recoverRequest(OpenBank.log.size(), leader);
@@ -187,7 +186,7 @@ public class NetworkReceiver extends Thread {
 				 }
 				 OpenBank.log.add(position, temp);
 				 position=position+1;
-				 }
+				 
 			 }
 	  }
 	  
