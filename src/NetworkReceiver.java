@@ -189,7 +189,8 @@ public class NetworkReceiver extends Thread {
 		  	 JSONObject obj=(JSONObject) JSONValue.parse((msg));
 			 JSONArray content = (JSONArray)obj.get("entries");
 			 int position = ((Long)obj.get("pos")).intValue();
-			 for(int i=position; i<content.size();++i) {
+			 for(int i=0; i<content.size();++i) {
+				 
 				 ArrayList<Double> temp = new ArrayList<Double>();
 				 JSONArray inContent =  (JSONArray)content.get(i);
 				 for(int j=0; j<inContent.size();++j) {
@@ -199,6 +200,7 @@ public class NetworkReceiver extends Thread {
 					 OpenBank.log.add(temp);
 				 }  else {
 					 OpenBank.log.add(position, temp);
+					 position=position+1;
 				 }
 			 }
 	  }
