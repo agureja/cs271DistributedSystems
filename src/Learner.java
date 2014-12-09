@@ -73,7 +73,7 @@ public class Learner extends Process {
 			optAcceptedValues.put(value, 1);
 		}
 		if(optAcceptedValues.get(value) >= quorumSize) {
-			if(optimal == false) {
+			if(OpenBank.isOptimized == false) {
 				this.value = value;
 				NetworkSender.sendOptDecide(senderId, value);
 				optAcceptedValues.clear();
