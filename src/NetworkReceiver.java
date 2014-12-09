@@ -143,11 +143,14 @@ public class NetworkReceiver extends Thread {
 											if (OpenBank.updateLog(tempVal,value) == true) {
 												if (senderList.contains(OpenBank.id)) {		
 													OpenBank.jobQueue.poll();
+													OpenBank.decide=true;
+													
 												}
 											}
 											OpenBank.proposer.reset();
 											OpenBank.learner.reset();
 											OpenBank.acceptor.reset();
+											OpenBank.bal = OpenBank.id;
 											break;
 					}
 					
