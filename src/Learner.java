@@ -45,7 +45,9 @@ public class Learner extends Process {
 				this.value = value;
 				ArrayList<Double> tempValue= new ArrayList<Double>();
 				tempValue.add(value);
-				NetworkSender.sendDecide(new ArrayList<Integer>(uniqueId),tempValue);
+				ArrayList<Integer> ids=new ArrayList<Integer>();
+				ids.add(uniqueId);
+				NetworkSender.sendDecide(new ArrayList<Integer>(),tempValue);
 				acceptedValues.clear();
 			} else {
 				ArrayList<Double> values = new ArrayList<Double>();
