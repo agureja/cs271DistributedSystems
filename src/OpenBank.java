@@ -55,7 +55,6 @@ public class OpenBank {
 		proposer = new Proposer(id);
 		acceptor = new Acceptor(id);
 		learner = new Learner(id);
-
 		new Thread(new NetworkReceiver()).start();
 		System.out.println("Account is logged in!");
 		System.out.println("Choose Paxos mode:");
