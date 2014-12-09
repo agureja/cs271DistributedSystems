@@ -13,8 +13,12 @@ public class csv {
 	protected ArrayList<ArrayList<Double>> readLog;
 	private BufferedReader br;
 	private String line;
-	public csv(String fileName) {
+	public csv(String fileName) throws IOException {
 		this.fileName = fileName;
+		FileWriter fw = new FileWriter(fileName,true);
+		fw.close();
+		
+		
 	}
 	
 	protected ArrayList<ArrayList<Double>> readLog() {
@@ -82,8 +86,7 @@ public class csv {
 						fw.append(String.valueOf(temp));
 				}
 			}
-			fw.append('\n');
-			
+			fw.append('\n');	
 			fw.flush();
 			fw.close();
 		} catch (IOException e) {
