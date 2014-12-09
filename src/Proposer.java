@@ -12,7 +12,8 @@ public class Proposer extends Process {
 	
 	public Proposer(int processUid) {
 		super(processUid);
-		propId = new BallotNumber(0); 
+		propId = new BallotNumber(processUid); 
+		
 		prevIDAcceptedByProposer = new BallotNumber(0);
 		value = 0;
 		//list of user accepting the promise.
@@ -43,14 +44,13 @@ public class Proposer extends Process {
 	public boolean recievePromise(Integer uuid, BallotNumber propId, BallotNumber prevAcceptedByAcceptor, double value) {
 		//I feel like we don't need the uuid
 		//but leave it here at first
-		System.out.println("In recieve Promise");
+		
 		if(prevIDAcceptedByProposer.getUniqueId() == 0) {
 			
 			prevIDAcceptedByProposer = new BallotNumber(prevAcceptedByAcceptor.getUniqueId(),prevAcceptedByAcceptor.getNumber());
 		}
 		else if(prevIDAcceptedByProposer.CompareTo(prevAcceptedByAcceptor)<0) {
 			
-			System.out.println("NO one should be here");
 			prevIDAcceptedByProposer.setUniqueId(prevAcceptedByAcceptor.getUniqueId());
 			prevIDAcceptedByProposer.setNumber(prevAcceptedByAcceptor.getNumber());
 			this.value = value;
@@ -63,7 +63,5 @@ public class Proposer extends Process {
 		}
 		return true;
 	}
-
-	
 	
 }
