@@ -102,7 +102,8 @@ public class OpenBank {
 					int sendTime = 1;
 					while (decide == false) {
 						if (System.currentTimeMillis() - timeStamp > timeout) {
-
+							
+							NetworkSender.sendPrepare(new BallotNumber(id, bal));
 							//set a time out
 							//if > 5 seconds, abort, increase ballot number
 							System.out.println("Failure: time out");
@@ -111,7 +112,6 @@ public class OpenBank {
 							if (sendTime > 5) {
 								break;
 							}
-							NetworkSender.sendPrepare(new BallotNumber(id, bal));
 							timeStamp = System.currentTimeMillis();
 						}					
 					}

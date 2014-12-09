@@ -11,12 +11,12 @@ public class Learner extends Process {
 
 	HashMap<Double,Integer> acceptedValues;
 	HashMap <Double, Integer> optAcceptedValues;
-	ArrayList<Integer> senders;
+	HashSet<Integer> senders;
 	public Learner(int processUid) {
 		super(processUid);
 		acceptedValues = new HashMap<Double, Integer>();
 		optAcceptedValues = new HashMap <Double, Integer> ();
-		senders = new ArrayList<Integer>();
+		senders = new HashSet<Integer>();
 		value=0;
 	}
 	
