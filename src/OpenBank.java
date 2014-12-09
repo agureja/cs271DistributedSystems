@@ -13,7 +13,7 @@ public class OpenBank {
 
 	protected static ArrayList<ArrayList<Double>> log; // logging array
 	protected static LinkedList<Double> jobQueue;
-	static boolean decide;
+	static boolean decide= false;
 	static HashMap<String, Integer> serverMapping; // server list
 	static int counter;
 	static String localIP;
@@ -21,6 +21,7 @@ public class OpenBank {
 	static Acceptor acceptor;
 	static Learner learner;
 	static int id = 1;
+	static long timeout=10;
 	
 	static csv logFile;
 	static String fileName = "log_"+String.valueOf(id) + ".csv";
@@ -41,7 +42,7 @@ public class OpenBank {
 		//log.add(temp);// initial balance
 	//	counter = 0; // operation number
 	}
-	static int bal = id - serverMapping.size();
+	static int bal = id;	
 	
 	public static void main(String args[]) throws Exception {
 			
@@ -50,7 +51,7 @@ public class OpenBank {
 		log = logFile.readLog();
 		jobQueue = new LinkedList<Double>();
 		recvThreadControl = true;
-		optDecided = false;
+		
 		try {
 			localIP = InetAddress.getLocalHost().getHostName();
 			System.out.println("Local Ipaddress is " + String.valueOf(localIP));
@@ -88,7 +89,7 @@ public class OpenBank {
 		System.out.println("5. Unfail");
 
 		while (true) {
-			decide = false;
+			
 
 			String input = "";
 			input = in.nextLine();
@@ -99,36 +100,37 @@ public class OpenBank {
 				System.out.println("Enter the amount you want to deposit/ withdraw:");
 				double val = Double.parseDouble(in.nextLine());
 				// optimized && deposit operation
-				if (isOptimized && val > 0) {
-					
-					//updateLog(val);
-					NetworkSender.sendOptAccept(id, val);
-					long timeStamp = System.currentTimeMillis();
-					while (optDecided == false) {
-						if (System.currentTimeMillis() - timeStamp > 2) {
-							/*
-							increase ballot number
-							send again
-							update the curr time stamp
-							counter: if fails 10 times, finally break
-							*/
-							break;
-						}
-					}
-					// other server has accepted the value
-					if (optDecided == true) {
-						optDecided = false;
-					} else {
-						// jump out from while loop because of time out
-						log.remove(log.size() - 1);
-						sendToLeaderQueue(val);
-					}
-				} else {
+					/*
+					* every thing else is the same as basic case
+					*/
 					sendToLeaderQueue(val);
 					proposer.value = jobQueue.peek();
-					//every time I will increase my ballot number 
-					NetworkSender.sendPrepare(new BallotNumber(id, bal + serverMapping.size()));
-				}
+					NetworkSender.sendPrepare(new BallotNumber(id, bal));	
+					long timeStamp = System.currentTimeMillis();
+					int sendTime = 1;
+					while (decide == false) {
+						if (System.currentTimeMillis() - timeStamp > timeout) {
+
+							//set a time out
+							//if > 5 seconds, abort, increase ballot number
+							System.out.println("Failure: time out");
+							bal = bal + 5;
+							sendTime++;
+							if (sendTime > 5) {
+								break;
+							}
+							NetworkSender.sendPrepare(new BallotNumber(id, bal));
+							timeStamp = System.currentTimeMillis();
+						}					
+					}
+
+					if (decide == true) {
+						decide = false;
+						
+					} else {
+						System.out.println("Failure Occured!!");
+						jobQueue.poll();
+					}
 				break;
 
 			case "2":

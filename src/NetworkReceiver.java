@@ -20,8 +20,12 @@ public class NetworkReceiver extends Thread {
 	
 	  public void run() {   
 		  try {
+			 if (OpenBank.recvThreadControl) {
 			socket = new ServerSocket(4000);
-				while(OpenBank.recvThreadControl) {
+			 } else {
+				 socket.close();
+			 }
+				while(true) {
 					receivedMsg ="";
 					connectionSocket = socket.accept();
 					receiver = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
