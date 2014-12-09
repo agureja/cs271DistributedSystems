@@ -32,7 +32,7 @@ public class Acceptor extends Process {
 
 	public void receiveAccept(BallotNumber proposal, double value) {
 		
-		System.out.println("the value is" + String.valueOf( proposal.CompareTo(promise)));
+		//System.out.println("the value is" + String.valueOf( proposal.CompareTo(promise)));
 		if (proposal.CompareTo(promise)>=0) {
 			promise.setNumber(proposal.getNumber());
 			promise.setUniqueId(proposal.getUniqueId());
