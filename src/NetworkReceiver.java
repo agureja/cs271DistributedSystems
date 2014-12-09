@@ -92,7 +92,7 @@ public class NetworkReceiver extends Thread {
 											senderId = ((Long) jsonObject.get("sender")).intValue();
 											proposeBal = new BallotNumber(proposeUid, ((Long) jsonObject.get("proposalBallotNumber")).intValue());
 											promiseBal = new BallotNumber(promiseUid, ((Long) jsonObject.get("promiseBallotNumber")).intValue());
-											value = ((Long) jsonObject.get("value")).doubleValue();
+											value = ((Double) jsonObject.get("value")).doubleValue();
 											slots = ((Long) jsonObject.get("slotNumber")).intValue();
 											if(slots > OpenBank.log.size()) {
 												NetworkSender.recoverRequest(OpenBank.log.size(), senderId);
@@ -105,7 +105,7 @@ public class NetworkReceiver extends Thread {
 											OpenBank.proposer.recievePromise(promiseUid, proposeBal, promiseBal, value);
 											break;
 											
-						case "accept" : 	value = ((Long) jsonObject.get("value")).doubleValue();
+						case "accept" : 	value = ((Double) jsonObject.get("value")).doubleValue();
 					                   	 	proposal = new BallotNumber(
 					                   	 			((Long) jsonObject.get("acceptUid")).intValue(),
 					                   	 			((Long) jsonObject.get("acceptBallotNumber")).intValue());
@@ -115,7 +115,7 @@ public class NetworkReceiver extends Thread {
 						case "accepted"  :	proposal = new BallotNumber(
 												((Long) jsonObject.get("acceptedUid")).intValue(),
 												((Long) jsonObject.get("acceptedBallotNumber")).intValue());
-											value = ((Long) jsonObject.get("value")).doubleValue();
+											value = ((Double) jsonObject.get("value")).doubleValue();
 											uniqueId = ((Long) jsonObject.get("acceptedUid")).intValue();
 											//let learner learn the accepted value, whether can be decided
 											//OpenBank.acceptor.receiveAcceptRequest(uniqueId,proposal,value);
@@ -129,12 +129,16 @@ public class NetworkReceiver extends Thread {
 											*change the updateLog(value) to updateLog(amount)
 											*maybe we need a new data structure	
 											*/
-											value = ((Long) jsonObject.get("value")).doubleValue();
-											senderId = ((Long) jsonObject.get("senderId")).intValue();
+											value = ((Double) jsonObject.get("value")).doubleValue();
+											JSONArray senders = (JSONArray) jsonObject.get("senderId");
+											ArrayList<Integer> senderList = new ArrayList<Integer>();
+											for(int i=0;i<senders.size();++i) {
+												senderList.add(((Long) jsonObject.get("senderId")).intValue());
+											}
 											ArrayList<Double> tempVal = new ArrayList<Double>();
 											tempVal.add(value);
 											if (OpenBank.updateLog(tempVal,value) == true) {
-												if (senderId == OpenBank.id) {		
+												if (senderList.contains(OpenBank.id)) {		
 													OpenBank.jobQueue.poll();
 												}
 											}
