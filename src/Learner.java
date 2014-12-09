@@ -46,7 +46,6 @@ public class Learner extends Process {
 			
 			if(optimal == false) {
 				this.value = value;
-				
 				tempValue.add(value);
 				ids.add(uniqueId);
 				acceptedValues.clear();
@@ -67,8 +66,6 @@ public class Learner extends Process {
 				}
 			}
 			NetworkSender.sendDecide(ids,tempValue);
-			
-		
 	}
 }
 	public void receiveOptAccepted(int senderId, double value) {
