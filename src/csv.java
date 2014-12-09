@@ -15,10 +15,8 @@ public class csv {
 	private String line;
 	public csv(String fileName) throws IOException {
 		this.fileName = fileName;
-		FileWriter fw = new FileWriter(fileName,true);
-		fw.append("Deposit");
-		fw.append("	");
-		fw.append(String.valueOf(0.0));
+		FileWriter fw = new FileWriter(fileName,false);
+		fw.write("Deposit	0.0");
 		fw.close();
 		
 		
@@ -66,7 +64,8 @@ public class csv {
 	
 	protected void generateLog(ArrayList <ArrayList<Double>> log) {
 		try {
-			FileWriter fw = new FileWriter(fileName,true);
+			FileWriter fw = new FileWriter(fileName,false);
+			StringBuilder file = new StringBuilder();
 			for (int i = 0; i < log.size(); ++i) {
 				
 				String temp="";
@@ -79,17 +78,15 @@ public class csv {
 				
 				if (val >= 0) {
 						
-						fw.append("Deposit");
-						fw.append("	");
-						fw.append(temp);
+						file.append("Deposit	"+temp);
+					
 				} else {
 						
-						fw.append("Withdraw");
-						fw.append("	");
-						fw.append(String.valueOf(temp));
-				}
+						file.append("Withdraw	"+temp);
 			}
-			fw.append("\r\n");	
+			file.append("\r\n");	
+			}
+			fw.write(file.toString());
 			fw.flush();
 			fw.close();
 		} catch (IOException e) {
