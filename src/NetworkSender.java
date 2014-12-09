@@ -124,6 +124,7 @@ public class NetworkSender {
 		JSONObject obj = new JSONObject();
 		obj.put("task", "recoverRequest");
 		obj.put("pos", new Integer(startPos));
+		obj.put("senderId", new Integer(startPos));
 		sendString(obj.toString(), serverMapping.get(destUid));
 	}
 	

@@ -64,7 +64,7 @@ public class NetworkReceiver extends Thread {
 													break;
 													
 						case "recoverRequest" :		requestPos = ((Long) jsonObject.get("pos")).intValue();
-													requestId = ((Long) jsonObject.get("senderUid")).intValue();
+													requestId = ((Long) jsonObject.get("senderId")).intValue();
 													sendRecoverResponse(requestPos, requestId);
 													break;
 							
