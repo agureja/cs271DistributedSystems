@@ -95,7 +95,7 @@ public class NetworkReceiver extends Thread {
 											value = ((Double) jsonObject.get("value")).doubleValue();
 											slots = ((Long) jsonObject.get("slotNumber")).intValue();
 											if(slots > OpenBank.log.size()) {
-												NetworkSender.recoverRequest(OpenBank.log.size(), senderId);
+												NetworkSender.recoverRequest(OpenBank.log.size(), OpenBank.id);
 												for(int i= OpenBank.log.size();i<slots;i++) {
 													temp = new ArrayList<Double>();
 													temp.add((double)0);
