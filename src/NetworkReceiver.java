@@ -74,14 +74,8 @@ public class NetworkReceiver extends Thread {
 						case "prepare" :    			
 											slots = ((Long) jsonObject.get("slotNumber")).intValue();
 											leader = ((Long) jsonObject.get("leader")).intValue();
-											if(slots > OpenBank.log.size()) {
+											if(slots > OpenBank.log.size()) {	
 												NetworkSender.recoverRequest(OpenBank.log.size(), leader);
-												for(int i= OpenBank.log.size();i<slots;i++) {
-													temp = new ArrayList<Double>();
-													temp.add((double)0);
-													OpenBank.log.add(temp);
-												}
-												
 											}
 											proposal = new BallotNumber(leader,((Long) jsonObject.get("proposalBallotNumber")).intValue());
 											OpenBank.acceptor.receivePrepare(proposal);
@@ -96,11 +90,6 @@ public class NetworkReceiver extends Thread {
 											slots = ((Long) jsonObject.get("slotNumber")).intValue();
 											if(slots > OpenBank.log.size()) {
 												NetworkSender.recoverRequest(OpenBank.log.size(), senderId);
-												for(int i= OpenBank.log.size();i<slots;i++) {
-													temp = new ArrayList<Double>();
-													temp.add((double)0);
-													OpenBank.log.add(temp);
-												}
 											}
 											OpenBank.proposer.recievePromise(senderId, proposeBal, promiseBal, value);
 											break;
@@ -196,11 +185,8 @@ public class NetworkReceiver extends Thread {
 				 for(int j=0; j<inContent.size();++j) {
 					 temp.add(((Double)inContent.get(j)).doubleValue());
 				 }
-				 if(position>OpenBank.log.size()){
-					 OpenBank.log.add(temp);
-				 }  else {
-					 OpenBank.log.add(position, temp);
-					 position=position+1;
+				 OpenBank.log.add(position, temp);
+				 position=position+1;
 				 }
 			 }
 	  }
