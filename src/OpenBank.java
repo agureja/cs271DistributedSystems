@@ -191,11 +191,11 @@ public class OpenBank {
 	public static boolean updateLog(ArrayList<Double> amount,Double transactionAmount) {
 		Double currBalance = checkBalance();
 		
-		if (currBalance + transactionAmount < 0) {
-			System.out.println("Withdraw failure: the balance is less than"
-					+ String.valueOf(Math.abs(transactionAmount)));
+		if (currBalance + transactionAmount <= 0) {
+			System.out.println("Withdraw/Deposit failure");
 			return false;
 		} else {
+			
 			log.add(amount);
 			logFile.generateLog(log);
 			//not pop job queue here

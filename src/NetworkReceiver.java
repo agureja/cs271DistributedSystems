@@ -30,7 +30,7 @@ public class NetworkReceiver extends Thread {
 					connectionSocket = socket.accept();
 					receiver = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 					receivedMsg= receiver.readLine();
-					System.out.println("Received Msg is: " + receivedMsg);
+					//System.out.println("Received Msg is: " + receivedMsg);
 					
 					String task = readTask(receivedMsg);
 					JSONParser jsonParser = new JSONParser();
@@ -143,7 +143,6 @@ public class NetworkReceiver extends Thread {
 											if (OpenBank.updateLog(tempVal,value) == true) {
 												if (senderList.contains(OpenBank.id)) {		
 													OpenBank.jobQueue.poll();
-													OpenBank.decide=true;
 													
 												}
 											}
