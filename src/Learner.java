@@ -44,7 +44,9 @@ public class Learner extends Process {
 		if(acceptedValues.get(value) >= quorumSize) {
 			if(optimal == false) {
 				this.value = value;
-				NetworkSender.sendDecide(new ArrayList<Integer>(uniqueId), new ArrayList<Double>().add(value));
+				ArrayList<Double> tempValue= new ArrayList<Double>();
+				tempValue.add(value);
+				NetworkSender.sendDecide(new ArrayList<Integer>(uniqueId),tempValue);
 				acceptedValues.clear();
 			} else {
 				ArrayList<Double> values = new ArrayList<Double>();
