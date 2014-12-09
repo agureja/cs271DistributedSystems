@@ -30,11 +30,11 @@ public class OpenBank {
 	static boolean optDecided;
 	static {
 		serverMapping = new HashMap<String, Integer>();
-		serverMapping.put("54.173.66.74", 1);
-		serverMapping.put("54.67.107.51", 2);
-		serverMapping.put("54.77.131.120", 3);
-		serverMapping.put("54.169.15.246", 4);
-		serverMapping.put("54.94.234.64", 5);
+		serverMapping.put("54.173.66.74", 1); //N.Virginia
+		serverMapping.put("54.67.127.52", 2); //N.California
+		serverMapping.put("54.169.15.246", 3); //Ireland
+		serverMapping.put("54.169.15.246", 4); // Singapore
+		serverMapping.put("54.94.234.64", 5); // Sao paulo
 		log = new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> temp= new ArrayList<Double>();
 		temp.add((double) 0);
@@ -44,40 +44,7 @@ public class OpenBank {
 	static int bal = id - serverMapping.size();
 	
 	public static void main(String args[]) throws Exception {
-		
-		JSONObject missLogs = new JSONObject();
-		JSONArray missEntries = new JSONArray();
-		ArrayList<Double> temp= new ArrayList<Double>();
-		temp.add((double) 100);
-		
-		ArrayList<Double> temp2= new ArrayList<Double>();
-		temp2.add((double) 200);
-		temp2.add((double) 300);
-		
-		ArrayList<Double> temp3= new ArrayList<Double>();
-		temp3.add((double) 400);
-		temp3.add((double) 500);
-		temp3.add((double) 600);
-		
-		log.add(temp);
-		log.add(temp2);
-		log.add(temp3);
-		
-		missEntries.addAll(OpenBank.log.subList(0, OpenBank.log.size()));
-		missLogs.put("tast", "recoverResponse");
-		missLogs.put("entries", missEntries);
-		
-		 JSONObject obj=(JSONObject) JSONValue.parse((missLogs.toJSONString()));
-		 JSONArray content = (JSONArray)obj.get("entries");
-		 for(int i=0; i<content.size();++i) {
-			 ArrayList<Double> temp4 = new ArrayList<Double>();
-			 JSONArray inContent =  (JSONArray)content.get(i);
-			 for(int j=0; j<inContent.size();++j) {
-				 temp4.add(((Double)inContent.get(j)).doubleValue());
-			 }
-			 log.add(temp4);
-		 }
-			 
+					 
 		logFile = new csv(fileName);
 		jobQueue = new LinkedList<Double>();
 		recvThreadControl = true;
