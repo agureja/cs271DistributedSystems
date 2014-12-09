@@ -52,13 +52,6 @@ public class OpenBank {
 		jobQueue = new LinkedList<Double>();
 		recvThreadControl = true;
 		
-		try {
-			localIP = InetAddress.getLocalHost().getHostName();
-			System.out.println("Local Ipaddress is " + String.valueOf(localIP));
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		}
-
 		proposer = new Proposer(id);
 		acceptor = new Acceptor(id);
 		learner = new Learner(id);
