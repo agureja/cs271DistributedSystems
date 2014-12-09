@@ -34,7 +34,7 @@ public class csv {
 				String[] contents = line.split("	");
 				ArrayList<Double> tempList = new ArrayList<Double>();
 				
-				if (contents[0] == "Deposit") {
+				if (contents[0].compareTo("Deposit") == 0) {
 					String[] deposits = contents[1].split(",");
 					for(int i=0;i<deposits.length;++i) {
 						tempList.add(Double.valueOf(deposits[i]));
@@ -76,7 +76,7 @@ public class csv {
 				val = (double) 0;
 				for(int j = 0; j<log.get(i).size();++j) {
 					val = val + log.get(i).get(j);
-					temp+= String.valueOf(Math.abs(val))+",";
+					temp+= String.valueOf(Math.abs(log.get(i).get(j)))+",";
 				}
 				temp=temp.substring(0,temp.length()-2);
 				
