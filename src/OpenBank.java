@@ -36,9 +36,9 @@ public class OpenBank {
 		serverMapping.put("54.169.15.246", 4); // Singapore
 		serverMapping.put("54.94.234.64", 5); // Sao paulo
 		log = new ArrayList<ArrayList<Double>>();
-		ArrayList<Double> temp= new ArrayList<Double>();
-		temp.add((double) 0);
-		log.add(temp);// initial balance
+	//	ArrayList<Double> temp= new ArrayList<Double>();
+		//temp.add((double) 0);
+		//log.add(temp);// initial balance
 	//	counter = 0; // operation number
 	}
 	static int bal = id - serverMapping.size();
@@ -47,8 +47,7 @@ public class OpenBank {
 			
 		
 		logFile = new csv(fileName);
-		
-		log.addAll(logFile.readLog());
+		log = logFile.readLog();
 		jobQueue = new LinkedList<Double>();
 		recvThreadControl = true;
 		optDecided = false;

@@ -15,7 +15,10 @@ public class csv {
 	private String line;
 	public csv(String fileName) throws IOException {
 		this.fileName = fileName;
-		FileWriter fw = new FileWriter(fileName,true);
+		FileWriter fw = new FileWriter(fileName,false);
+		fw.append("Deposit");
+		fw.append("	");
+		fw.append(0);
 		fw.close();
 		
 		
@@ -74,7 +77,7 @@ public class csv {
 				}
 				temp=temp.substring(0,temp.length()-2);
 				
-				if (val > 0) {
+				if (val >= 0) {
 						
 						fw.append("Deposit");
 						fw.append("	");
