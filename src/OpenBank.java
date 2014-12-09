@@ -21,7 +21,7 @@ public class OpenBank {
 	static Acceptor acceptor;
 	static Learner learner;
 	static int id = 1;
-	static long timeout=10;
+	static long timeout=10000;
 	
 	static csv logFile;
 	static String fileName = "log_"+String.valueOf(id) + ".csv";
