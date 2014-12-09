@@ -150,6 +150,9 @@ public class OpenBank {
 			case "4":
 				recvThreadControl = false;
 				log.clear();
+				ArrayList<Double> temp= new ArrayList<Double>();
+				temp.add((double) 0);
+				log.add(temp);
 				break;
 
 			case "5":
@@ -191,7 +194,7 @@ public class OpenBank {
 	public static boolean updateLog(ArrayList<Double> amount,Double transactionAmount) {
 		Double currBalance = checkBalance();
 		
-		if (currBalance + transactionAmount <= 0) {
+		if (currBalance + transactionAmount < 0 || transactionAmount == 0) {
 			System.out.println("Withdraw/Deposit failure");
 			return false;
 		} else {
