@@ -12,20 +12,17 @@ public class Learner extends Process {
 	HashMap<Double,Integer> acceptedValues;
 	HashMap <Double, Integer> optAcceptedValues;
 	ArrayList<Integer> senders;
-	boolean optimal = false;
 	public Learner(int processUid) {
 		super(processUid);
 		acceptedValues = new HashMap<Double, Integer>();
 		optAcceptedValues = new HashMap <Double, Integer> ();
 		senders = new ArrayList<Integer>();
 		value=0;
-		optimal = false;
 	}
 	
 	public void reset() {
 		value = 0;
 		optAcceptedValues.clear();
-		optimal=false;
 		senders.clear();
 		acceptedValues.clear();
 	}
@@ -44,7 +41,7 @@ public class Learner extends Process {
 			ArrayList<Double> tempValue= new ArrayList<Double>();
 			ArrayList<Integer> ids=new ArrayList<Integer>();
 			
-			if(optimal == false) {
+			if(OpenBank.isOptimized == false) {
 				this.value = value;
 				tempValue.add(value);
 				ids.add(uniqueId);
