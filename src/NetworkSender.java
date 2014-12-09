@@ -16,7 +16,7 @@ public class NetworkSender {
 	static {
 		serverMapping = new HashMap<Integer, String>();
 		serverMapping.put(1,"54.173.66.74");
-		serverMapping.put(2,"54.67.107.51");
+		serverMapping.put(2,"54.67.111.150");
 		serverMapping.put(3,"54.77.131.120");
 		serverMapping.put(4,"54.169.15.246");
 		serverMapping.put(5,"54.94.234.64");

@@ -31,7 +31,7 @@ public class OpenBank {
 	static {
 		serverMapping = new HashMap<String, Integer>();
 		serverMapping.put("54.173.66.74", 1); //N.Virginia
-		serverMapping.put("54.67.127.52", 2); //N.California
+		serverMapping.put("54.67.111.150", 2); //N.California
 		serverMapping.put("54.77.131.120", 3); //Ireland
 		serverMapping.put("54.169.15.246", 4); // Singapore
 		serverMapping.put("54.94.234.64", 5); // Sao paulo
