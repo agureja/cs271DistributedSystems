@@ -112,7 +112,6 @@ public class NetworkSender {
 		for (int i=0; i < val.size(); i++) {
 	        values.add(val.get(i));
 		}
-		
 		obj.put("value", values);
 		for(int i = 1;i<=serverMapping.size();i++ ) {
 	        //System.out.println(serverMapping.toString());
@@ -124,7 +123,7 @@ public class NetworkSender {
 	public static void recoverRequest(int startPos, int destUid) {
 		JSONObject obj = new JSONObject();
 		obj.put("task", "recoverRequest");
-		obj.put("position", new Integer(startPos));
+		obj.put("pos", new Integer(startPos));
 		sendString(obj.toString(), serverMapping.get(destUid));
 	}
 	
