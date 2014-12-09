@@ -162,7 +162,7 @@ public class OpenBank {
 	public static Double checkBalance() {
 		Double currBalance = log.get(0).get(0);
 		for (int i = 1; i < log.size(); i++) {
-			for(int j=1;j <log.get(i).size();j++) {
+			for(int j=0;j <log.get(i).size();j++) {
 				
 				if (log.get(i).get(j) == 0) {
 					break;
